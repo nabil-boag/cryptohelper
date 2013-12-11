@@ -2,7 +2,7 @@
 <html ng-app="cryptohelperApp" lang="en">
   <head>
     <meta charset="utf-8">
-    <title>TEST</title>
+    <title>CryptyoHelper</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -13,7 +13,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     
-    <script src="lib/jquery/jquery-1.10.2.min.js"></script>
+    <script src="lib/jquery/jquery-1.10.2.js"></script>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-resource.js"></script>
     <script src="lib/angular/angular-route.js"></script>
@@ -28,6 +28,15 @@
     <a class="sr-only" href="#content">Skip to main content</a>
     <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
       <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="./" class="navbar-brand">CryptyoHelper</a>
+        </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
             <li class="active">
@@ -50,7 +59,7 @@
       <div class="row">
         <div ng-controller="ExchangeData" class="col-xs-6">
           <h1>Exchange Data</h1>
-          <p>LTC - USD: <span ng-bind="exchangeDataService.ltc_usd.last"></span></p>
+          <p>LTC - USD: <span ng-bind="exchangeDataService.ltc_usd.ticker.last"></span></p>
   <!--        <p>LTC - BTC<span ng-bind="exchangeDataService.ltc_btc.last"></span></p>
           <p>BTC - USD<span ng-bind="exchangeDataService.btc_usd.last"></span></p>-->
 
@@ -60,28 +69,43 @@
           <h1>User Data</h1>
           <form class="form-horizontal" role="form">
             <div class="form-group">
-              <label for="last_usd_value" class="col-sm-2 control-label">Litecoins Owned</label>
-              <div class="col-sm-10">
-                <input id="last_usd_value" class="form-control" ng-model="userDataService.num_ltc">
+              <label for="num_ltc" class="col-sm-2 control-label">Litecoins</label>
+              <div class="col-sm-4">
+                <input id="num_ltc" class="form-control" ng-model="userDataService.num_ltc">
               </div>
             </div>
+            
+<!--            <div class="form-group">
+              <label for="num_usd" class="col-sm-2 control-label">USD</label>
+              <div class="col-sm-4">
+                <input id="num_usd" class="form-control" ng-model="userDataService.num_usd">
+              </div>
+            </div>-->
 
             <!--      <p>Bitcoins owned</p>
             <input ng-model="userDataService.num_bitcoins">-->
 
             <div class="form-group">
-              <label for="last_usd_value" class="col-sm-2 control-label">Target USD</label>
-              <div class="col-sm-10">
-                <input id="last_usd_value" class="form-control" ng-model="userDataService.last_usd_value">
+              <label for="last_usd_num" class="col-sm-2 control-label">Last USD (Target)</label>
+              <div class="col-sm-4">
+                <input id="last_usd_num" class="form-control" ng-model="userDataService.last_usd_num">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="last_ltc_num" class="col-sm-2 control-label">Last LTC(Target)</label>
+              <div class="col-sm-4">
+                <input id="last_ltc_num" class="form-control" ng-model="userDataService.last_ltc_num">
               </div>
             </div>
 
             <div class="form-group">
               <label for="exchange_weighting" class="col-sm-2 control-label">Exchange weighting</label>
-              <div class="col-sm-10">
+              <div class="col-sm-4">
                 <input id="exchange_weighting" class="form-control" ng-model="userDataService.exchange_weighting">
               </div>
             </div>
+            <!--<button type="submit" class="btn btn-default">Save</button>-->
           </form>
         </div>
       </div>
@@ -102,7 +126,7 @@
                 <th>Data key</th>
                 <th>Data Value</th>
               </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.ltc_usd">
+              <tr ng-repeat="(key,val) in exchangeDataService.ltc_usd.ticker">
                 <td>{{key}}</td>
                 <td>{{val}}</td>
               </tr>
@@ -116,7 +140,7 @@
                 <th>Data key</th>
                 <th>Data Value</th>
               </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.ltc_btc">
+              <tr ng-repeat="(key,val) in exchangeDataService.ltc_btc.ticker">
                 <td>{{key}}</td>
                 <td>{{val}}</td>
               </tr>
@@ -130,7 +154,7 @@
                 <th>Data key</th>
                 <th>Data Value</th>
               </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.btc_usd">
+              <tr ng-repeat="(key,val) in exchangeDataService.btc_usd.ticker">
                 <td>{{key}}</td>
                 <td>{{val}}</td>
               </tr>

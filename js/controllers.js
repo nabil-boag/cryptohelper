@@ -4,34 +4,9 @@
 
 var cryptohelperControllers = angular.module('cryptohelperControllers', []);
 
-cryptohelperControllers.controller('ExchangeData', ['$scope', 'btceAPI', 
-  'exchangeDataService', '$timeout',
-  function($scope, btceAPI, exchangeDataService, $timeout) {
+cryptohelperControllers.controller('ExchangeData', ['$scope', 'exchangeDataService',
+  function($scope, exchangeDataService) {
     $scope.exchangeDataService = exchangeDataService;
-    
-    (function tick() {
-        btceAPI.get({action: 'ticker', endpoint: 'ltc_usd'}, function(response) {
-          $scope.exchangeDataService.ltc_usd = response.contents.ticker;
-          // Poll the server every 5 seconds
-          $timeout(tick, 5000);
-        });
-    })();
-    
-    (function tick() {
-        btceAPI.get({action: 'ticker', endpoint: 'ltc_btc'}, function(response) {
-          $scope.exchangeDataService.ltc_btc = response.contents.ticker;
-          // Poll the server every 5 seconds
-          $timeout(tick, 5000);
-        });
-    })();
-    
-    (function tick() {
-        btceAPI.get({action: 'ticker', endpoint: 'btc_usd'}, function(response) {
-          $scope.exchangeDataService.btc_usd = response.contents.ticker;
-          // Poll the server every 5 seconds
-          $timeout(tick, 5000);
-        });
-    })();
   }
 ]);
 
@@ -42,9 +17,37 @@ cryptohelperControllers.controller('UserData', ['$scope', 'userDataService',
 ]);
 
 cryptohelperControllers.controller('RawData', ['$scope', 
-  'exchangeDataService', 'userDataService',
-  function($scope, exchangeDataService, userDataService) {
+  'exchangeDataService',
+  function($scope, exchangeDataService) {
+    $scope.exchangeDataService = exchangeDataService;
+  }
+]);
+
+cryptohelperControllers.controller('SellHelperCtrl', ['$scope', 
+  'exchangeDataService', 'userDataService', 'conversionService',
+  function($scope, exchangeDataService, userDataService, conversionService) {
     $scope.exchangeDataService = exchangeDataService;
     $scope.userDataService = userDataService;
   }
 ]);
+
+cryptohelperControllers.controller('BuyHelperCtrl', ['$scope', 
+  'exchangeDataService', 'userDataService', 'conversionService',
+  function($scope, exchangeDataService, userDataService, conversionService) {
+    $scope.exchangeDataService = exchangeDataService;
+    $scope.userDataService = userDataService;
+    //$scope.conversionService = conversionService;
+    
+    $scope.$watch( function () { return exchangeDataService.ltc_usd.ticker; }, function (data) {
+      $scope.potential_ltc = conversionService.convert_currency('usd', 'ltc', userDataService.num_usd, true);
+      $scope.potential_ltc_value = conversionService.convert_currency('ltc', 'usd', $scope.potential_ltc, false);
+      $scope.difference_potential_ltc = $scope.potential_ltc - userDataService.last_ltc_num;
+      $scope.difference_potential_ltc_class = ($scope.difference_potential_ltc >0) ? 'text-success' : 'text-danger';
+      $scope.difference_potential_ltc_value = $scope.potential_ltc_value - userDataService.last_usd_num;
+      $scope.difference_potential_ltc_value_class = ($scope.difference_potential_ltc_value >0) ? 'text-success' : 'text-danger';
+    }, true);
+    
+    
+  }
+]);
+
