@@ -17,6 +17,7 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-resource.js"></script>
     <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-local-storage.min.js"></script>
     
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
@@ -112,54 +113,61 @@
       <div class="row" id="content">
         <div ng-view class="view-frame"></div>
       </div>
+      <div>
+        <div class="row">
+          <h1 class="text-center">LTC USD</h1>
+          <iframe src="http://bitcoinwisdom.com/markets/btce/ltcusd" width="100%" height="400"></iframe>
+        </div>
+        <div class="row">
+          <h1 class="text-center">BTC USD</h1>
+            <iframe src="http://bitcoinwisdom.com/markets/btce/btcusd" width="100%"  height="400"></iframe>
+        </div>
+      </div>
       <div ng-controller="RawData">
         <div class="row">
-          <h1 class="text-center">Raw exchange data</h1>
+          <h1 class="text-center">Raw Data</h1>
+          <iframe src="http://bitcoinwisdom.com/markets/btce/ltcusd" width="100%" height="400"></iframe>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+          <h1 class="text-center">LTC -> USD</h1>
+          <table class="table table-hover" >
+            <tr>
+              <th>Data key</th>
+              <th>Data Value</th>
+            </tr>
+            <tr ng-repeat="(key,val) in exchangeDataService.ltc_usd.ticker">
+              <td>{{key}}</td>
+              <td>{{val}}</td>
+            </tr>
+          </table>      
         </div>
 
-        <div class="row">
+        <div class="col-xs-6 col-sm-4">
+          <h1 class="text-center">LTC -> BTC</h1>
+          <table class="table table-hover" >
+            <tr>
+              <th>Data key</th>
+              <th>Data Value</th>
+            </tr>
+            <tr ng-repeat="(key,val) in exchangeDataService.ltc_btc.ticker">
+              <td>{{key}}</td>
+              <td>{{val}}</td>
+            </tr>
+          </table>      
+        </div>
 
-          <div class="col-xs-6 col-sm-4">
-            <h1 class="text-center">LTC -> USD</h1>
-            <table class="table table-hover" >
-              <tr>
-                <th>Data key</th>
-                <th>Data Value</th>
-              </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.ltc_usd.ticker">
-                <td>{{key}}</td>
-                <td>{{val}}</td>
-              </tr>
-            </table>      
-          </div>
-
-          <div class="col-xs-6 col-sm-4">
-            <h1 class="text-center">LTC -> BTC</h1>
-            <table class="table table-hover" >
-              <tr>
-                <th>Data key</th>
-                <th>Data Value</th>
-              </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.ltc_btc.ticker">
-                <td>{{key}}</td>
-                <td>{{val}}</td>
-              </tr>
-            </table>      
-          </div>
-
-          <div class="col-xs-6 col-sm-4">
-            <h1 class="text-center">BTC -> USD</h1>
-            <table class="table table-hover" >
-              <tr>
-                <th>Data key</th>
-                <th>Data Value</th>
-              </tr>
-              <tr ng-repeat="(key,val) in exchangeDataService.btc_usd.ticker">
-                <td>{{key}}</td>
-                <td>{{val}}</td>
-              </tr>
-            </table>      
-          </div>
+        <div class="col-xs-6 col-sm-4">
+          <h1 class="text-center">BTC -> USD</h1>
+          <table class="table table-hover" >
+            <tr>
+              <th>Data key</th>
+              <th>Data Value</th>
+            </tr>
+            <tr ng-repeat="(key,val) in exchangeDataService.btc_usd.ticker">
+              <td>{{key}}</td>
+              <td>{{val}}</td>
+            </tr>
+          </table>      
         </div>
       </div>
     </div>

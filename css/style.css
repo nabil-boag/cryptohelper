@@ -29,3 +29,7 @@ header, nav {
 .first-container  {
   margin-top: 40px;
 }
+
+iframe, object, embed {
+        max-width: 100%;
+}

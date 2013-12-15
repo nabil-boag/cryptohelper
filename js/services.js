@@ -102,16 +102,17 @@ cryptohelperServices.factory('exchangeDataService', ['LTCUSDPoller',
   }
 ]);
 
+
 cryptohelperServices.run(function(exchangeDataService) {});
 
 
 cryptohelperServices.factory('userDataService', function(){
     return {
-      num_ltc: 11.88817601,
+      num_ltc: 10.95073279,
       num_usd: 382.79,
       num_btc: 0,
       last_usd_num: 382.79,
-      last_ltc_num: 10.96509337,
+      last_ltc_num: 10.95073279,
       exchange_weighting: 1,
     };
   }

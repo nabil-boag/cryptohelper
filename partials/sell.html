@@ -1,5 +1,7 @@
 <div class="highlight">
   <h1>Sell</h1>
-  <p>LTC -> USD</p>
-  <p ng-bind="potential_ltc"></p>
+  <p ng-class="difference_potential_usd_class" >
+    Potential USD if you bought at this time: <span ng-bind="potential_usd"></span>. 
+    Difference: <strong><span ng-bind="difference_potential_usd"></span></strong> 
+  </p>
 </div>

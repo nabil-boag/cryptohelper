@@ -5,7 +5,7 @@
 var cryptohelperApp = angular.module('cryptohelperApp', [
   'ngRoute',
   'cryptohelperControllers',
-  'cryptohelperServices'
+  'cryptohelperServices',
 ]);
 
 cryptohelperApp.config(['$routeProvider',
