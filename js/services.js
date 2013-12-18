@@ -97,7 +97,7 @@ cryptohelperServices.factory('exchangeDataService', ['LTCUSDPoller',
       ltc_btc : LTCBTCPoller,
       btc_usd : BTCUSDPoller,
       exchange_fee_percentage: 0.02,
-      exchange_fee_rate: 0.98
+      exchange_fee_rate: 0.9998
     };
   }
 ]);
